@@ -1,6 +1,6 @@
 # Dental Tools homepage
 
-The homepage is a single `index.html` file with all styling included. It links to your existing Odontogram, NPS, and Composite apps.
+The homepage uses `index.html` with all styling included, plus `tooth-avatar.png` and `Dorsinians.png`. Keep these files together and upload all three to GitHub. It links to your existing Odontogram, NPS, Composite, Recall, and Medical consult apps.
 
 Open `index.html` locally to preview it.
 
@@ -9,3 +9,5 @@ To use it as your main GitHub Pages homepage, put `index.html` in the root of a 
 If that repository already contains a homepage, replacing its `index.html` will replace the existing homepage. You can also upload this file to a separate repository and use that repository's GitHub Pages address.
 
 To change the Firefox tab name, edit the `<title>` near the top of `index.html`.
+
+Medical consult links to https://longton810.github.io/medicalconsultation/. Publish the MedicalConsultation folder contents in a repository named `medicalconsultation`, or change the button link to match your repository name.
