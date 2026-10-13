@@ -15,3 +15,15 @@ Medical consult links to https://longton810.github.io/consult/. Publish the Medi
 All tool buttons open in a new browser tab, keeping the homepage open.
 
 All homepage text uses Arial.
+
+Extraction and Referral buttons open `/extraction/` and `/referral/` in new tabs. These destinations assume repositories with those names; change their links if your repository names differ.
+
+RCT and Crown open `/rct/` and `/crown/` in new tabs. These links assume repositories named `rct` and `crown`.
+
+COE opens `/coe/` in a new tab, assuming a repository named `coe`.
+
+Drag cards onto another card to rearrange the menu. The order is saved in this browser; clicking a card still opens its tool in a new tab.
+
+The portrait includes cursor-following eyes drawn as a lightweight overlay. The source portrait stays unchanged. Eyes recenter when the pointer leaves; reduced-motion preferences disable tracking.
+
+Upload `dental-pattern.svg` with the homepage files; it provides the dental icon background.
