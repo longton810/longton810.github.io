@@ -1,6 +1,6 @@
 # Dental Notes homepage
 
-The homepage uses `index.html` with all styling included, plus `tooth-avatar.png`. Keep these files together and upload both to GitHub. It links to your existing Odontogram, NPS, Composite, Recall, and Medical consult apps.
+The homepage uses `index.html` with all styling included, plus `tooth-avatar.png` and `long-ton.webp`. Keep these files together and upload all three to GitHub. It links to your existing Odontogram, NPS, Composite, Recall, and Medical consult apps.
 
 Open `index.html` locally to preview it.
 
@@ -13,3 +13,5 @@ To change the Firefox tab name, edit the `<title>` near the top of `index.html`.
 Medical consult links to https://longton810.github.io/consult/. Publish the MedicalConsultation folder contents in a repository named `consult`, or change the button link to match your repository name.
 
 All tool buttons open in a new browser tab, keeping the homepage open.
+
+All homepage text uses Arial.

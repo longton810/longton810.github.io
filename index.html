@@ -10,7 +10,7 @@
     * { box-sizing: border-box; }
     body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 28px; isolation: isolate;
       background: radial-gradient(ellipse at 8% 10%, rgba(103,169,255,.42), transparent 48%), radial-gradient(ellipse at 92% 25%, rgba(185,156,250,.35), transparent 48%), radial-gradient(ellipse at 45% 95%, rgba(112,220,203,.28), transparent 48%), linear-gradient(130deg,#f0f6ff,#e6eefb); background-attachment: fixed; }
-    .homepage-layout { position: relative; z-index: 1; width: min(100%,1250px); margin:auto 0; padding-top:clamp(32px,5vw,60px); }
+    .homepage-layout { position: relative; z-index: 1; width: min(100%,1250px); margin:auto 0; padding-top:0; }
     main { width:100%; }
     .homepage-panel { min-width:0; position: relative; z-index: 1; margin: 0; flex-shrink: 0; width: min(100%, 1250px); padding: 28px 42px 42px; border: 1px solid rgba(255,255,255,.85); border-radius: 32px; background: rgba(255,255,255,.25); box-shadow: 0 24px 70px rgba(54,83,132,.10), inset 0 1px 0 rgba(255,255,255,.9); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
     body::before, body::after { content: ''; position: fixed; width: min(55vw,620px); height: min(55vw,620px); border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(42px); opacity: .65; animation: soft-light 16s ease-in-out infinite alternate; }
@@ -18,20 +18,20 @@
     body::after { bottom: 4%; right: -10%; background: radial-gradient(circle,rgba(185,154,255,.46),rgba(131,233,219,.18) 55%,transparent 72%); animation-delay: -8s; }
     @keyframes soft-light { from { transform: translate3d(0,0,0) scale(.9); } to { transform: translate3d(35px,-25px,0) scale(1.12); } }
     header { margin-bottom: 34px; }
-    .eyebrow { display: inline-block; padding: 0; border: 0; border-radius: 0; background: linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.28)); background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.85); filter: drop-shadow(0 1px 0 rgba(255,255,255,.9)) drop-shadow(0 8px 18px rgba(54,83,132,.18)); font-size: clamp(32px,5vw,60px); font-weight: 900; letter-spacing: .035em; line-height: 1.1; text-transform: uppercase; }
-    .identity { position:absolute; left:42px; bottom:100%; display:flex; align-items:baseline; gap:18px; padding:0; margin:0; max-width:calc(100% - 84px); line-height:1; }
-        .identity .eyebrow { line-height:.74; transform:translateY(1px); }
+    .eyebrow { font-family:Arial,sans-serif; display: inline-block; padding: 0; border: 0; border-radius: 0; background: linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.28)); background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.85); filter: drop-shadow(0 1px 0 rgba(255,255,255,.9)) drop-shadow(0 8px 18px rgba(54,83,132,.18)); font-size: clamp(32px,5vw,60px); font-weight: 900; letter-spacing: .035em; line-height: 1.1; text-transform: uppercase; }
     .eyebrow { flex-shrink: 0; }
-    .school-name { font-size:clamp(16px,2.5vw,30px); font-weight:900; letter-spacing:.045em; line-height:.74; background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.28)); background-clip:text; -webkit-background-clip:text; color:transparent; -webkit-text-fill-color:transparent; -webkit-text-stroke:.5px rgba(255,255,255,.85); filter:drop-shadow(0 1px 0 rgba(255,255,255,.9)) drop-shadow(0 5px 12px rgba(54,83,132,.18)); }
-    .school-border { position:absolute; right:42px; bottom:100%; transform:translateY(1px); white-space:nowrap; }
 
     h1 { margin: 18px 0 10px; font-size: clamp(32px,5vw,48px); letter-spacing: -.04em; }
-    .title-row { position:relative; width:fit-content; max-width:100%; display: flex; align-items: center; gap: 18px; margin: 14px 0 10px; }
+    .title-row { position:relative; width:100%; max-width:100%; display: flex; align-items: center; gap: 18px; margin: 14px 0 10px; }
     .title-row h1 { margin: 0; }
+    .profile-card { margin-left:auto; display:flex; align-items:center; gap:22px; }
+    .profile-details { text-align:right; }
+    .profile-name { display:block; font-size:28px; line-height:1.15; margin:0; }
+    .profile-role { font-family:Arial,sans-serif; color:#54708e; font-size:14px; line-height:1.4; border-top:1px solid rgba(84,112,142,.3); margin-top:3px; padding-top:3px; }
+    .profile-portrait { width:126px; height:126px; margin:0; flex-shrink:0; border-radius:50%; object-fit:cover; object-position:center 30%; border:3px solid rgba(255,255,255,.85); box-shadow:0 8px 24px rgba(54,83,132,.15),0 0 0 7px rgba(255,255,255,.2); }
     .hero-tooth { width: 126px; height: 140px; object-fit: contain; flex-shrink: 0; overflow: visible; fill: none; stroke: none; filter: drop-shadow(0 8px 8px rgba(54,93,151,.2)); }
-    .tooth-sparkles { position: relative; display: inline-flex; flex-shrink: 0; }
-    @keyframes tooth-twinkle { 0%,18%,70%,100% { opacity: 0; transform: scale(.3) rotate(-12deg); } 35%,45% { opacity: 1; transform: scale(1.1) rotate(8deg); } }
-    @media (max-width: 480px) { .hero-tooth { width: 76px; height: 96px; } .title-row { gap: 12px; } }
+    .tooth-visual { position: relative; display: inline-flex; flex-shrink: 0; }
+    @media (max-width: 480px) { .title-row { flex-wrap:wrap; } .profile-card { width:100%; margin:16px 0 0; justify-content:center; gap:16px; } .profile-name { font-size:26px; } .profile-portrait { width:66px; height:66px; } .title-row h1 { font-size:26px; } .hero-tooth { width:54px; height:68px; } .title-row { gap: 12px; } }
     .intro { margin: 0; color: #536b86; font-size: 16px; line-height: 1.6; }
     nav { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 20px; }
     .tool { --accent: #2563eb; --flash: rgba(37,99,235,.28); --tint: rgba(111,170,255,.2); position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 190px; padding: 26px;
@@ -55,28 +55,36 @@
 
     footer { margin-top: 28px; color: #536b86; font-size: 12px; }
     @media (min-width: 801px) and (max-width: 1000px) { nav { grid-template-columns: repeat(2,minmax(0,1fr)); } }
-    @media (max-width: 800px) { nav { grid-template-columns: 1fr; } .tool { min-height: 0; } .homepage-panel { padding: 24px 26px 26px; } .identity { left:26px; max-width:calc(100% - 52px); flex-wrap:wrap; gap:8px 18px; } .school-border { right:26px; font-size:clamp(16px,2.5vw,30px); } body { padding: 24px 18px; } .icon { margin-bottom: 18px; } }
-    .notes-title { position:relative; isolation:isolate; }
-    .sparkle-path { position:absolute; inset:-12px -16px; pointer-events:none; }
-    .orbit-sparkle { position:absolute; left:0; top:0; width:12px; height:12px; opacity:0; background:#fff; clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%); filter:drop-shadow(0 0 5px #8bc6ff); offset-path:ellipse(50% 50% at 50% 50%); offset-anchor:center; offset-rotate:0deg; animation:sparkle-orbit 12s linear infinite,tooth-twinkle 3.8s ease-in-out infinite; }
-    @keyframes sparkle-orbit { from { offset-distance:0%; } to { offset-distance:100%; } }
-    @media (prefers-reduced-motion: reduce) { .orbit-sparkle { animation:none; opacity:.65; } .orbit-sparkle:nth-child(3n+1) { offset-distance:15%; } .orbit-sparkle:nth-child(3n+2) { offset-distance:45%; } .orbit-sparkle:nth-child(3n) { offset-distance:80%; } body::before,body::after { animation: none; } .tool:hover::after { animation: none; } .tool { transition: none; } .tool:hover,.tool:active { transform: none; } }
+    @media (max-width: 800px) { nav { grid-template-columns: 1fr; } .tool { min-height: 0; } .homepage-panel { padding: 24px 26px 26px; } body { padding: 24px 18px; } .icon { margin-bottom: 18px; } }
+    .notes-title { position:relative; isolation:isolate; color:#20334b; }
+    @media (prefers-reduced-motion: reduce) { body::before,body::after { animation: none; } .tool:hover::after { animation: none; } .tool { transition: none; } .tool:hover,.tool:active { transform: none; } }
+    .profile-name { background:none; color:#000; -webkit-text-fill-color:#000; -webkit-text-stroke:0; filter:none; }
+    .profile-role { color:#000; }
+    .profile-name,.profile-role { font-size:clamp(32px,5vw,48px); font-weight:700; line-height:1.15; letter-spacing:-.04em; }
+    .profile-name { text-transform:none; }
+    @media(max-width:1000px) { .title-row { flex-wrap:wrap; } .profile-card { margin-left:auto; } }
+    @media(max-width:480px) { .profile-name,.profile-role { font-size:26px; } }
+    .profile-role { font-size:clamp(16px,2vw,22px); letter-spacing:0; }
   </style>
 </head>
 <body>
   <div class="homepage-layout">
   <main>
     <fieldset class="homepage-panel">
-      <div class="identity"><span class="eyebrow">LONG TON</span></div>
-      <span class="school-name school-border">LECOM SCHOOL OF DENTAL MEDICINE</span>
     <header>
       <div class="title-row">
-        <span class="tooth-sparkles" aria-hidden="true">
+        <span class="tooth-visual" aria-hidden="true">
           <img class="hero-tooth" src="tooth-avatar.png" alt="" width="126" height="140">
           
         </span>
         <h1 class="notes-title">Dental Notes</h1>
-        <span class="sparkle-path" aria-hidden="true"><span class="orbit-sparkle" style="animation-delay:-0.0s,-0.00s"></span><span class="orbit-sparkle" style="animation-delay:-1.2s,-0.38s"></span><span class="orbit-sparkle" style="animation-delay:-2.4s,-0.76s"></span><span class="orbit-sparkle" style="animation-delay:-3.6s,-1.14s"></span><span class="orbit-sparkle" style="animation-delay:-4.8s,-1.52s"></span><span class="orbit-sparkle" style="animation-delay:-6.0s,-1.90s"></span><span class="orbit-sparkle" style="animation-delay:-7.2s,-2.28s"></span><span class="orbit-sparkle" style="animation-delay:-8.4s,-2.66s"></span><span class="orbit-sparkle" style="animation-delay:-9.6s,-3.04s"></span><span class="orbit-sparkle" style="animation-delay:-10.8s,-3.42s"></span></span>
+        <div class="profile-card">
+          <div class="profile-details">
+            <div class="eyebrow profile-name">Long Ton</div>
+            <div class="profile-role">D4 dental student</div>
+          </div>
+          <img class="profile-portrait" src="long-ton.webp" alt="Long Ton" width="126" height="126">
+        </div>
       </div>
     </header>
     <nav aria-label="Dental notes">
