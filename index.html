@@ -90,6 +90,17 @@
     .clock-time { font-size:clamp(30px,4vw,44px); font-weight:600; font-variant-numeric:tabular-nums; letter-spacing:.04em; line-height:1.1; }
     .clock-date { font-size:12px; font-weight:600; color:#54708e; line-height:1.5; padding:5px 12px; border:1px solid rgba(255,255,255,.75); border-radius:999px; background:rgba(255,255,255,.36); }
     @media(max-width:480px) { .homepage-clock { padding:18px 22px; } }
+    .countdown-ticker { width:min(100%,600px); margin:16px auto 0; padding:16px 20px; border:0; background:none; color:#20334b; text-align:center; perspective:700px; }
+    .countdown-track { position:relative; width:260px; height:80px; margin:auto; transform-style:preserve-3d; transform:translateZ(-130px); }
+    .countdown-face { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; gap:5px; backface-visibility:hidden; }
+    .countdown-front { transform:translateZ(130px); }
+    .countdown-right { transform:rotateY(90deg) translateZ(130px); }
+    .countdown-title { font-size:14px; font-weight:700; }
+    .countdown-remaining { font-size:22px; font-weight:700; font-variant-numeric:tabular-nums; }
+    .countdown-date { font-size:12px; color:#54708e; }
+    .countdown-track.is-rotating { animation:countdown-turn .8s cubic-bezier(.4,0,.2,1) forwards; }
+    @keyframes countdown-turn { from { transform:translateZ(-130px) rotateY(0); } to { transform:translateZ(-130px) rotateY(-90deg); } }
+    @media(prefers-reduced-motion:reduce) { .countdown-track.is-rotating { animation:none; } }
   </style>
 </head>
 <body>
@@ -175,6 +186,9 @@
   <div class="homepage-clock" aria-label="Local time and date">
     <time id="homepageTime" class="clock-time"></time>
     <time id="homepageDate" class="clock-date"></time>
+  </div>
+  <div class="countdown-ticker" aria-label="Upcoming dates countdown">
+    <div id="countdownTrack" class="countdown-track"></div>
   </div>
   </div>
 
@@ -320,6 +334,56 @@
     if (!document.hidden) timer = setInterval(update, 1000);
   };
   document.addEventListener('visibilitychange', resume);
+  resume();
+})();
+  </script>
+  <script>
+(() => {
+  const events = [
+    ['ADEX EXAM', 2026, 11, 13, '🦷'],
+    ['Thanksgiving Day', 2026, 11, 26, '🦃'],
+    ['Christmas Eve', 2026, 12, 24, '🎄'],
+    ["New Year's Day", 2027, 1, 1, '🎆'],
+    ['Last Day of D4', 2027, 5, 21, '🎉'],
+    ['Commencement Day', 2027, 6, 6, '🎓']
+  ];
+  const track = document.getElementById('countdownTrack');
+  const card = track.parentElement;
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const dateFormat = new Intl.DateTimeFormat('en-US', { month:'long', day:'numeric', year:'numeric' });
+  let index = 0, timer, flipTimer, paused = false;
+  const face = eventIndex => {
+    const [name, year, month, day, icon] = events[eventIndex], now = new Date();
+    const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+    const days = Math.round((Date.UTC(year, month - 1, day) - today) / 86400000);
+    const remaining = days > 0 ? `${days} ${days === 1 ? 'day' : 'days'} left` : days === 0 ? 'Today!' : `${-days} ${days === -1 ? 'day' : 'days'} ago`;
+    const panel = document.createElement('div'); panel.className = 'countdown-face';
+    [['countdown-title',`${icon} ${name}`],['countdown-remaining',remaining],['countdown-date',dateFormat.format(new Date(year, month - 1, day))]].forEach(([className,text]) => {
+      const line = document.createElement('div'); line.className = className; line.textContent = text; panel.append(line);
+    });
+    return panel;
+  };
+  const show = () => {
+    track.classList.remove('is-rotating');
+    const front = face(index); front.classList.add('countdown-front');
+    track.replaceChildren(front);
+  };
+  const next = () => {
+    if (paused || document.hidden) return;
+    const nextIndex = (index + 1) % events.length;
+    if (reducedMotion.matches) { index = nextIndex; show(); return; }
+    const right = face(nextIndex); right.classList.add('countdown-right');
+    track.append(right);
+    track.classList.add('is-rotating');
+    flipTimer = setTimeout(() => { index = nextIndex; show(); },800);
+  };
+  const resume = () => {
+    clearInterval(timer); clearTimeout(flipTimer); show();
+    if (!document.hidden) timer = setInterval(next,5000);
+  };
+  card.addEventListener('pointerenter',() => paused = true);
+  card.addEventListener('pointerleave',() => paused = false);
+  document.addEventListener('visibilitychange',resume);
   resume();
 })();
   </script>
