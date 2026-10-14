@@ -127,6 +127,22 @@ nav { max-width: 980px; margin-inline: auto; gap: 14px; }
 .tool .icon svg { width: 23px; height: 23px; }
 .tool h2 { font-size: 18px; margin-bottom: 0; }
 @media(max-width:800px) { .tool { min-height: 0; padding: 16px; } }
+    .portrait-wrap .profile-portrait { object-fit:contain; object-position:center; }
+    /* Magnify the character inside the existing portrait frame. */
+    .portrait-wrap { border:3px solid rgba(255,255,255,.85); border-radius:50%; overflow:hidden; background:#fff; box-shadow:0 8px 24px rgba(54,83,132,.15),0 0 0 7px rgba(255,255,255,.2); }
+    .portrait-wrap .profile-portrait { border:0; border-radius:0; box-shadow:none; transform:translateY(11%) scale(1.5); transform-origin:50% 55%; }
+
+    /* Gentle motion and a brief eyes-closed frame in the homepage portrait. */
+    .portrait-character { position:absolute; inset:0; display:block; transform-origin:50% 75%; animation:homepage-portrait-sway 5.5s ease-in-out infinite; }
+    .portrait-character .profile-portrait { position:absolute; inset:0; }
+    .portrait-character .portrait-blink-frame { opacity:0; pointer-events:none; }
+    .is-blinking .portrait-blink-frame { animation:homepage-portrait-blink .2s ease-in-out; }
+    @keyframes homepage-portrait-sway {
+      0%,100% { transform:translateY(0) rotate(-.7deg); }
+      50% { transform:translateY(1.5px) rotate(.7deg); }
+    }
+    @keyframes homepage-portrait-blink { 0%,100% { opacity:0; } 30%,70% { opacity:1; } }
+    @media(prefers-reduced-motion:reduce) { .portrait-character { animation:none; } .portrait-blink-frame { display:none; } }
   </style>
 </head>
 <body>
@@ -146,21 +162,10 @@ nav { max-width: 980px; margin-inline: auto; gap: 14px; }
             <div class="profile-role">D4 dental student</div>
           </div>
           <span class="portrait-wrap">
-            <img class="profile-portrait" src="long-ton.webp" alt="Long Ton" width="126" height="126">
-            <svg class="portrait-eyes" viewBox="0 0 1376 1376" aria-hidden="true">
-              <defs>
-                <radialGradient id="eyeWhite"><stop stop-color="#fffdf7"/><stop offset="1" stop-color="#e9ddd1"/></radialGradient>
-                <radialGradient id="eyeIris"><stop stop-color="#12100e"/><stop offset=".56" stop-color="#17120e"/><stop offset=".6" stop-color="#68513c"/><stop offset="1" stop-color="#271d17"/></radialGradient>
-                <clipPath id="leftEyeClip"><path d="M484 564 Q494 532 530 526 Q574 520 607 568 Q585 587 544 588 Q505 591 484 564Z"/></clipPath>
-                <clipPath id="rightEyeClip"><path d="M755 550 Q757 520 793 509 Q850 498 881 544 Q865 570 818 574 Q776 576 755 550Z"/></clipPath>
-                <clipPath id="mouthClip"><ellipse cx="698" cy="753" rx="112" ry="49"/></clipPath>
-              </defs>
-              <g clip-path="url(#leftEyeClip)"><path d="M484 564 Q494 532 530 526 Q574 520 607 568 Q585 587 544 588 Q505 591 484 564Z" fill="url(#eyeWhite)"/><g class="tracking-pupil"><circle cx="552" cy="554" r="40" fill="url(#eyeIris)"/><circle cx="535" cy="538" r="8" fill="#fff"/></g></g>
-              <g clip-path="url(#rightEyeClip)"><path d="M755 550 Q757 520 793 509 Q850 498 881 544 Q865 570 818 574 Q776 576 755 550Z" fill="url(#eyeWhite)"/><g class="tracking-pupil"><circle cx="814" cy="539" r="39" fill="url(#eyeIris)"/><circle cx="798" cy="523" r="8" fill="#fff"/></g></g>
-              <g class="eye-lid" clip-path="url(#leftEyeClip)"><rect x="475" y="505" width="145" height="95" fill="#c78e6a"/><path d="M484 562 Q542 579 607 561" fill="none" stroke="#4e342a" stroke-width="7"/></g>
-              <g class="eye-lid" clip-path="url(#rightEyeClip)"><rect x="745" y="490" width="150" height="95" fill="#cd966f"/><path d="M755 549 Q817 565 881 542" fill="none" stroke="#4e342a" stroke-width="7"/></g>
-              <g class="talking-mouth" clip-path="url(#mouthClip)"><image class="mouth-texture" href="long-ton.webp" x="-224" y="0" width="1824" height="1376"/></g>
-            </svg>
+            <span class="portrait-character">
+              <img class="profile-portrait" src="crossed-arms.png" alt="Long Ton with crossed arms" width="126" height="126">
+              <img class="profile-portrait portrait-blink-frame" src="crossed-arms-blink.png" alt="" aria-hidden="true" width="126" height="126">
+            </span>
           </span>
         </div>
       </div>
@@ -310,36 +315,30 @@ nav { max-width: 980px; margin-inline: auto; gap: 14px; }
   <script>
 (() => {
   const portrait = document.querySelector('.portrait-wrap');
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  if (!portrait) return;
-  let blinkTimer, talkTimer, blinkEnd, talkEnd;
+  const closed = portrait?.querySelector('.portrait-blink-frame');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  if (!portrait || !closed) return;
+  let timer, end;
   const stop = () => {
-    [blinkTimer, talkTimer, blinkEnd, talkEnd].forEach(clearTimeout);
-    portrait.classList.remove('is-blinking', 'is-talking');
+    clearTimeout(timer); clearTimeout(end);
+    portrait.classList.remove('is-blinking');
   };
   const blink = () => {
-    if (document.hidden || reducedMotion.matches) return;
+    if (document.hidden || reduced.matches || !closed.complete || !closed.naturalWidth) return;
     portrait.classList.add('is-blinking');
-    blinkEnd = setTimeout(() => portrait.classList.remove('is-blinking'), 220);
-    blinkTimer = setTimeout(blink, 4500 + Math.random() * 4500);
-  };
-  const talk = () => {
-    if (document.hidden || reducedMotion.matches) return;
-    portrait.classList.add('is-talking');
-    talkEnd = setTimeout(() => portrait.classList.remove('is-talking'), 900 + Math.random() * 800);
-    talkTimer = setTimeout(talk, 13000 + Math.random() * 10000);
+    end = setTimeout(() => portrait.classList.remove('is-blinking'), 200);
+    timer = setTimeout(blink, 4000 + Math.random() * 3500);
   };
   const start = () => {
     stop();
-    if (document.hidden || reducedMotion.matches) return;
-    blinkTimer = setTimeout(blink, 3000);
-    talkTimer = setTimeout(talk, 8000);
+    if (!document.hidden && !reduced.matches && closed.complete && closed.naturalWidth) timer = setTimeout(blink, 2200);
   };
+  closed.addEventListener('load', start);
   document.addEventListener('visibilitychange', start);
-  reducedMotion.addEventListener('change', start);
+  reduced.addEventListener('change', start);
   start();
 })();
-  </script>
+</script>
   <script>
 (() => {
   const clock = document.getElementById('homepageTime');

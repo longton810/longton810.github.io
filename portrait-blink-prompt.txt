@@ -1,0 +1,1 @@
+Built-in imagegen: change only the eyes of the transparent crossed-arms portrait to gently closed eyelids behind the existing glasses. Preserve identity, pose, framing, scrubs, name embroidery, and transparency. Used as an occasional blink overlay.
