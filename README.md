@@ -27,3 +27,7 @@ Drag cards onto another card to rearrange the menu. The order is saved in this b
 The portrait includes cursor-following eyes drawn as a lightweight overlay. The source portrait stays unchanged. Eyes recenter when the pointer leaves; reduced-motion preferences disable tracking.
 
 Upload `dental-pattern.svg` with the homepage files; it provides the dental icon background.
+
+## Extraction link
+
+The published homepage opens `https://longton810.github.io/extraction/`. When opened as a local file inside ResponsiveProjects, the Extraction card opens `../Extraction/index.html` so it uses the current project in the same bundle. Keep Homepage and Extraction beside each other for this local link. Saved card ordering remains compatible.
