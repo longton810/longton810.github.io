@@ -1,5 +1,5 @@
-/* Homepage appearance. Rule order preserves existing responsive overrides. */
-:root { font-family: Arial, sans-serif; color: #20334b; background: #eaf2fc; }
+
+    :root { font-family: Arial, sans-serif; color: #20334b; background: #eaf2fc; }
     * { box-sizing: border-box; }
     body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 28px; isolation: isolate;
       background: radial-gradient(ellipse at 8% 10%, rgba(103,169,255,.42), transparent 48%), radial-gradient(ellipse at 92% 25%, rgba(185,156,250,.35), transparent 48%), radial-gradient(ellipse at 45% 95%, rgba(112,220,203,.28), transparent 48%), linear-gradient(130deg,#f0f6ff,#e6eefb); background-attachment: fixed; }
@@ -136,20 +136,16 @@ nav { max-width: 980px; margin-inline: auto; gap: 14px; }
     }
     @keyframes homepage-portrait-blink { 0%,100% { opacity:0; } 30%,70% { opacity:1; } }
     @media(prefers-reduced-motion:reduce) { .portrait-character { animation:none; } .portrait-blink-frame { display:none; } }
-
-
-
-    /* Anchor the illustrations to the menu border and portrait. */
-    body { padding-top:150px; }
-    .menu-ghost { filter:drop-shadow(0 0 6px rgba(255,255,255,.95)) drop-shadow(0 0 18px rgba(255,255,255,.8)) drop-shadow(0 0 32px rgba(255,255,255,.5)); position:absolute; left:38%; bottom:calc(100% + 5px); width:116px; height:auto; pointer-events:none; }
-    .profile-artwork { position:relative; display:block; flex-shrink:0; }
-    .profile-details { position:relative; }
-    .profile-bats { position:absolute; left:50%; bottom:calc(100% + 7px); transform:translateX(-50%); width:126px; height:auto; pointer-events:none; }
-    @media(max-width:480px) {
-      body { padding-top:125px; }
-      .menu-ghost { left:24px; width:100px; }
-      .profile-card { margin-top:95px; }
-      .profile-bats { width:100px; }
-    }
-
-.halloween-credit { margin:18px 0 0; text-align:center; font-size:11px; color:#536b86; }
+  
+/* Position the original illustrations above the menu and profile name. */
+body { padding-top:150px; }
+.menu-ghost { filter:drop-shadow(0 0 6px rgba(255,255,255,.95)) drop-shadow(0 0 18px rgba(255,255,255,.8)) drop-shadow(0 0 32px rgba(255,255,255,.5)); position:absolute; left:38%; bottom:calc(100% + 5px); width:116px; height:auto; pointer-events:none; }
+.profile-artwork { position:relative; display:block; flex-shrink:0; }
+.profile-details { position:relative; }
+.profile-bats { position:absolute; left:50%; bottom:calc(100% + 7px); transform:translateX(-50%); width:126px; height:auto; pointer-events:none; }
+@media(max-width:480px) {
+ body { padding-top:125px; }
+ .menu-ghost { left:24px; width:100px; }
+ .profile-card { margin-top:95px; }
+ .profile-bats { width:100px; }
+}

@@ -35,3 +35,7 @@ Upload `dental-pattern.svg` with the homepage files; it provides the dental icon
 The published homepage opens `https://longton810.github.io/extraction/`. When opened as a local file inside ResponsiveProjects, the Extraction card opens `../Extraction/index.html` so it uses the current project in the same bundle. Keep Homepage and Extraction beside each other for this local link. Saved card ordering remains compatible.
 
 The ghost with BOO sits 5 px above the menu border and the two bats sit above the profile name as transparent SVG crops extracted from the supplied Illustrator artwork. Keep `assets/halloween-ghost-boo.svg` and `assets/halloween-two-bats.svg` with the page. Illustration credit: Freepik.
+
+The ghost and bats are embedded directly in `index.html`, so GitHub Pages does not need separate image paths for these two illustrations. Upload the updated `index.html`, `style.css`, and `script.js` together. The editable source SVGs remain in `assets/`.
+
+Homepage uses the blue glass design with colored tool cards, the full-color portrait, glowing ghost and bats.
