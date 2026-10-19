@@ -5,150 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Quick access to Long Ton's dental charting and clinical note tools.">
   <title>Dental Notes | Long Ton</title>
-  <style>
-    :root { font-family: Arial, sans-serif; color: #20334b; background: #eaf2fc; }
-    * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 28px; isolation: isolate;
-      background: radial-gradient(ellipse at 8% 10%, rgba(103,169,255,.42), transparent 48%), radial-gradient(ellipse at 92% 25%, rgba(185,156,250,.35), transparent 48%), radial-gradient(ellipse at 45% 95%, rgba(112,220,203,.28), transparent 48%), linear-gradient(130deg,#f0f6ff,#e6eefb); background-attachment: fixed; }
-    .homepage-layout { position: relative; z-index: 1; width: min(100%,1250px); margin:auto 0; padding-top:0; }
-    main { width:100%; }
-    .homepage-panel { min-width:0; position: relative; z-index: 1; margin: 0; flex-shrink: 0; width: min(100%, 1250px); padding: 28px 42px 42px; border: 1px solid rgba(255,255,255,.85); border-radius: 32px; background: rgba(255,255,255,.25); box-shadow: 0 24px 70px rgba(54,83,132,.10), inset 0 1px 0 rgba(255,255,255,.9); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
-    body::before, body::after { content: ''; position: fixed; width: min(55vw,620px); height: min(55vw,620px); border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(42px); opacity: .65; animation: soft-light 16s ease-in-out infinite alternate; }
-    body::before { top: 8%; left: -12%; background: radial-gradient(circle,rgba(104,179,255,.52),rgba(145,201,255,.16) 55%,transparent 72%); }
-    body::after { bottom: 4%; right: -10%; background: radial-gradient(circle,rgba(185,154,255,.46),rgba(131,233,219,.18) 55%,transparent 72%); animation-delay: -8s; }
-    @keyframes soft-light { from { transform: translate3d(0,0,0) scale(.9); } to { transform: translate3d(35px,-25px,0) scale(1.12); } }
-    header { margin-bottom: 34px; }
-    .eyebrow { font-family:Arial,sans-serif; display: inline-block; padding: 0; border: 0; border-radius: 0; background: linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.28)); background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.85); filter: drop-shadow(0 1px 0 rgba(255,255,255,.9)) drop-shadow(0 8px 18px rgba(54,83,132,.18)); font-size: clamp(32px,5vw,60px); font-weight: 900; letter-spacing: .035em; line-height: 1.1; text-transform: uppercase; }
-    .eyebrow { flex-shrink: 0; }
-
-    h1 { margin: 18px 0 10px; font-size: clamp(32px,5vw,48px); letter-spacing: -.04em; }
-    .title-row { position:relative; width:100%; max-width:100%; display: flex; align-items: center; gap: 18px; margin: 14px 0 10px; }
-    .title-row h1 { margin: 0; }
-    .profile-card { margin-left:auto; display:flex; align-items:center; gap:22px; }
-    .profile-details { text-align:right; }
-    .profile-name { display:block; font-size:28px; line-height:1.15; margin:0; }
-    .profile-role { font-family:Arial,sans-serif; color:#54708e; font-size:14px; line-height:1.4; border-top:1px solid rgba(84,112,142,.3); margin-top:3px; padding-top:3px; }
-    .profile-portrait { width:126px; height:126px; margin:0; flex-shrink:0; border-radius:50%; object-fit:cover; object-position:center 30%; border:3px solid rgba(255,255,255,.85); box-shadow:0 8px 24px rgba(54,83,132,.15),0 0 0 7px rgba(255,255,255,.2); }
-    .hero-tooth { width: 126px; height: 140px; object-fit: contain; flex-shrink: 0; overflow: visible; fill: none; stroke: none; filter: drop-shadow(0 8px 8px rgba(54,93,151,.2)); }
-    .tooth-visual { position: relative; display: inline-flex; flex-shrink: 0; }
-    @media (max-width: 480px) { .title-row { flex-wrap:wrap; } .profile-card { width:100%; margin:16px 0 0; justify-content:center; gap:16px; } .profile-name { font-size:26px; } .profile-portrait { width:66px; height:66px; } .title-row h1 { font-size:26px; } .hero-tooth { width:54px; height:68px; } .title-row { gap: 12px; } }
-    .intro { margin: 0; color: #536b86; font-size: 16px; line-height: 1.6; }
-    nav { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 20px; }
-    .tool { --accent: #9f1239; --flash: rgba(159,18,57,.28); --tint: rgba(159,18,57,.22); position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 190px; padding: 26px;
-      text-decoration: none; color: inherit; border: 1px solid rgba(255,255,255,.95); border-radius: 24px;
-      background: linear-gradient(145deg,rgba(255,255,255,.52),rgba(255,255,255,.14)); box-shadow: 0 12px 28px rgba(48,76,117,.08),inset 0 1px 0 rgba(255,255,255,1),inset 1px 0 0 rgba(255,255,255,.7),inset 0 -1px 0 rgba(255,255,255,.35);
-      backdrop-filter: blur(28px) saturate(155%); -webkit-backdrop-filter: blur(28px) saturate(155%); transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
-    .tool::before { content: ''; position: absolute; width: 140px; height: 140px; top: -60px; right: -50px; border-radius: 50%; background: var(--tint); filter: blur(18px); pointer-events: none; }
-    .tool::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(110deg,transparent 25%,var(--flash) 50%,transparent 75%); transform: translateX(-150%); }
-    .tool:hover::after { animation: glass-flash .65s ease-out; }
-    @keyframes glass-flash { from { transform: translateX(-150%); } to { transform: translateX(150%); } }
-    .tool:hover { transform: translateY(-7px); background: linear-gradient(145deg,rgba(255,255,255,.68),rgba(255,255,255,.22)); box-shadow: 0 20px 38px rgba(48,76,117,.15), 0 0 32px var(--tint), inset 0 1px 0 white; }
-    .tool:active { transform: translateY(-2px); }
-    .tool:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
-    .screening { --accent:#b45309; --flash:rgba(180,83,9,.28); --tint:rgba(180,83,9,.22); }
-    .composite { --accent:#be185d; --flash:rgba(190,24,93,.28); --tint:rgba(190,24,93,.22); }
-    .recall { --accent:#4338ca; --flash:rgba(67,56,202,.28); --tint:rgba(67,56,202,.22); }
-    .extraction { --accent:#7c3aed; --flash:rgba(124,58,237,.28); --tint:rgba(124,58,237,.22); }
-    .referral { --accent:#0369a1; --flash:rgba(3,105,161,.28); --tint:rgba(3,105,161,.22); }
-    .rct { --accent:#0f766e; --flash:rgba(15,118,110,.28); --tint:rgba(15,118,110,.22); }
-    .crown { --accent:#c2410c; --flash:rgba(194,65,12,.28); --tint:rgba(194,65,12,.22); }
-    .coe { --accent:#047857; --flash:rgba(4,120,87,.28); --tint:rgba(4,120,87,.22); }
-    .medical { --accent:#4f46e5; --flash:rgba(79,70,229,.28); --tint:rgba(79,70,229,.22); }
-    .icon { position: relative; width: 50px; height: 50px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.9); border-radius: 15px; color: var(--accent); background: linear-gradient(145deg,rgba(255,255,255,.65),var(--tint)); box-shadow: 0 5px 12px rgba(48,76,117,.06), inset 0 1px 0 white; margin-bottom: 24px; }
-    svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-    h2 { position: relative; color: var(--accent); font-size: 20px; line-height: 1.35; margin: 0 0 10px; letter-spacing: -.3px; }
-
-    footer { margin-top: 28px; color: #536b86; font-size: 12px; }
-    @media (min-width: 801px) and (max-width: 1000px) { nav { grid-template-columns: repeat(2,minmax(0,1fr)); } }
-    @media (max-width: 800px) { nav { grid-template-columns: 1fr; } .tool { min-height: 0; } .homepage-panel { padding: 24px 26px 26px; } body { padding: 24px 18px; } .icon { margin-bottom: 18px; } }
-    .notes-title { position:relative; isolation:isolate; color:#20334b; }
-    @media (prefers-reduced-motion: reduce) { body::before,body::after { animation: none; } .tool:hover::after { animation: none; } .tool { transition: none; } .tool:hover,.tool:active { transform: none; } }
-    .profile-name { background:none; color:#000; -webkit-text-fill-color:#000; -webkit-text-stroke:0; filter:none; }
-    .profile-role { color:#000; }
-    .profile-name,.profile-role { font-size:clamp(32px,5vw,48px); font-weight:700; line-height:1.15; letter-spacing:-.04em; }
-    .profile-name { text-transform:none; }
-    @media(max-width:1000px) { .title-row { flex-wrap:wrap; } .profile-card { margin-left:auto; } }
-    @media(max-width:480px) { .profile-name,.profile-role { font-size:26px; } }
-    .profile-role { font-size:clamp(16px,2vw,22px); letter-spacing:0; }
-    .tool { user-select:none; -webkit-user-select:none; }
-    .tool.dragging { opacity:.35; cursor:grabbing; transform:none; }
-    .tool.drop-target { outline:2px solid var(--accent); outline-offset:4px; }
-    .portrait-wrap { position:relative; display:block; width:126px; height:126px; flex-shrink:0; }
-    .portrait-wrap .profile-portrait { width:100%; height:100%; display:block; }
-    svg.portrait-eyes { position:absolute; inset:3px; width:calc(100% - 6px); height:calc(100% - 6px); stroke:none; fill:none; pointer-events:none; }
-    .portrait-eyes circle { stroke:none; }
-    @media(max-width:480px) { .portrait-wrap { width:66px; height:66px; } }
-    .homepage-panel { background-image:radial-gradient(ellipse at 90% 0%,rgba(255,255,255,.42),transparent 48%),url("dental-pattern.svg"); background-size:auto,360px 270px; background-repeat:no-repeat,repeat; }
-    .eye-lid,.talking-mouth { opacity:0; pointer-events:none; }
-    .is-blinking .eye-lid { animation:portrait-blink .22s ease-in-out; }
-    .is-talking .talking-mouth { opacity:1; }
-    .is-talking .mouth-texture { transform-origin:698px 753px; animation:portrait-talk .24s ease-in-out infinite alternate; }
-    @keyframes portrait-blink { 0%,100% { opacity:0; } 35%,65% { opacity:1; } }
-    @keyframes portrait-talk { from { transform:scaleY(.97); } to { transform:scaleY(1.17); } }
-    @media(prefers-reduced-motion:reduce) { .eye-lid,.talking-mouth { display:none; } }
-    .homepage-clock { display:flex; flex-direction:column; align-items:center; gap:12px; width:fit-content; max-width:100%; margin:24px auto 0; padding:20px 32px; color:#20334b; text-align:center; border:1px solid rgba(255,255,255,.9); border-radius:22px; background:linear-gradient(145deg,rgba(255,255,255,.58),rgba(255,255,255,.2)); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); box-shadow:0 10px 26px rgba(48,76,117,.08),inset 0 1px 0 white; }
-    .clock-time { font-size:clamp(30px,4vw,44px); font-weight:600; font-variant-numeric:tabular-nums; letter-spacing:.04em; line-height:1.1; }
-    .clock-date { font-size:12px; font-weight:600; color:#54708e; line-height:1.5; padding:5px 12px; border:1px solid rgba(255,255,255,.75); border-radius:999px; background:rgba(255,255,255,.36); }
-    @media(max-width:480px) { .homepage-clock { padding:18px 22px; } }
-    .countdown-ticker { width:min(100%,600px); margin:16px auto 0; padding:16px 20px; border:0; background:none; color:#20334b; text-align:center; perspective:700px; }
-    .countdown-track { position:relative; width:260px; height:80px; margin:auto; transform-style:preserve-3d; transform:translateZ(-130px); }
-    .countdown-face { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; gap:5px; backface-visibility:hidden; }
-    .countdown-front { transform:translateZ(130px); }
-    .countdown-right { transform:rotateY(90deg) translateZ(130px); }
-    .countdown-title { font-size:14px; font-weight:700; }
-    .countdown-remaining { font-size:22px; font-weight:700; font-variant-numeric:tabular-nums; }
-    .countdown-date { font-size:12px; color:#54708e; }
-    .countdown-track.is-rotating { animation:countdown-turn .8s cubic-bezier(.4,0,.2,1) forwards; }
-    @keyframes countdown-turn { from { transform:translateZ(-130px) rotateY(0); } to { transform:translateZ(-130px) rotateY(-90deg); } }
-    @media(prefers-reduced-motion:reduce) { .countdown-track.is-rotating { animation:none; } }
-
-/* Fit the page to the screen while preserving vertical scrolling. */
-*, *::before, *::after { box-sizing: border-box; }
-body { max-width: 100%; }
-fieldset { min-inline-size: 0; }
-input, textarea, select, iframe { max-width: 100%; }
-textarea { resize: vertical; }
-[contenteditable="true"] { overflow-wrap: anywhere; }
-
-.title-row, .profile-card { flex-wrap: wrap; min-width: 0; max-width: 100%; }
-.profile-details, .tool { min-width: 0; overflow-wrap: anywhere; }
-.countdown-ticker { padding-inline: 0; }
-.countdown-track { max-width: 100%; }
-@media(max-width:600px) {
-  .homepage-panel { padding-inline: 18px; }
-  .profile-card { justify-content: center; margin-inline: auto; gap: 14px; }
-  .tool { padding: 20px; }
-}
-
-/* More compact homepage buttons. */
-nav { max-width: 980px; margin-inline: auto; gap: 14px; }
-.tool { min-height: 138px; padding: 18px; border-radius: 19px; }
-.tool .icon { width: 40px; height: 40px; border-radius: 12px; margin-bottom: 14px; }
-.tool .icon svg { width: 23px; height: 23px; }
-.tool h2 { font-size: 18px; margin-bottom: 0; }
-@media(max-width:800px) { .tool { min-height: 0; padding: 16px; } }
-    .portrait-wrap .profile-portrait { object-fit:contain; object-position:center; }
-    /* Magnify the character inside the existing portrait frame. */
-    .portrait-wrap { border:3px solid rgba(255,255,255,.85); border-radius:50%; overflow:hidden; background:#fff; box-shadow:0 8px 24px rgba(54,83,132,.15),0 0 0 7px rgba(255,255,255,.2); }
-    .portrait-wrap .profile-portrait { border:0; border-radius:0; box-shadow:none; transform:translateY(11%) scale(1.5); transform-origin:50% 55%; }
-
-    /* Gentle motion and a brief eyes-closed frame in the homepage portrait. */
-    .portrait-character { position:absolute; inset:0; display:block; transform-origin:50% 75%; animation:homepage-portrait-sway 5.5s ease-in-out infinite; }
-    .portrait-character .profile-portrait { position:absolute; inset:0; }
-    .portrait-character .portrait-blink-frame { opacity:0; pointer-events:none; }
-    .is-blinking .portrait-blink-frame { animation:homepage-portrait-blink .2s ease-in-out; }
-    @keyframes homepage-portrait-sway {
-      0%,100% { transform:translateY(0) rotate(-.7deg); }
-      50% { transform:translateY(1.5px) rotate(.7deg); }
-    }
-    @keyframes homepage-portrait-blink { 0%,100% { opacity:0; } 30%,70% { opacity:1; } }
-    @media(prefers-reduced-motion:reduce) { .portrait-character { animation:none; } .portrait-blink-frame { display:none; } }
-  </style>
+  <link rel="stylesheet" href="style.css?v=homepage-cleanup-1">
 </head>
 <body>
   <div class="homepage-layout">
   <main>
     <fieldset class="homepage-panel">
+    <img class="menu-ghost" src="assets/halloween-ghost-boo.svg" alt="Friendly ghost saying BOO" width="159" height="156">
     <header>
       <div class="title-row">
         <span class="tooth-visual" aria-hidden="true">
@@ -158,18 +21,22 @@ nav { max-width: 980px; margin-inline: auto; gap: 14px; }
         <h1 class="notes-title">Dental Notes</h1>
         <div class="profile-card">
           <div class="profile-details">
+            <img class="profile-bats" src="assets/halloween-two-bats.svg" alt="Two Halloween bats" width="147" height="126">
             <div class="eyebrow profile-name">Long Ton</div>
             <div class="profile-role">D4 dental student</div>
           </div>
+          <span class="profile-artwork">
           <span class="portrait-wrap">
             <span class="portrait-character">
               <img class="profile-portrait" src="crossed-arms.png" alt="Long Ton with crossed arms" width="126" height="126">
               <img class="profile-portrait portrait-blink-frame" src="crossed-arms-blink.png" alt="" aria-hidden="true" width="126" height="126">
             </span>
           </span>
+          </span>
         </div>
       </div>
     </header>
+
     <nav aria-label="Dental notes">
       <a class="tool" href="https://longton810.github.io/odontogram/" target="_blank" rel="noopener noreferrer">
         <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 3c-3 0-5 2-5 5 0 3 2 4 3 8 1 4 2 5 3 5s1-7 3-7 2 7 3 7 2-1 3-5c1-4 3-5 3-8 0-3-2-5-5-5-2 0-3 1-4 1s-2-1-4-1Z"/></svg></span>
@@ -212,9 +79,11 @@ nav { max-width: 980px; margin-inline: auto; gap: 14px; }
         <h2>Recall</h2>
       </a>
     </nav>
+    <p class="halloween-credit">Halloween illustrations designed by Freepik.</p>
+
     </fieldset>
   </main>
-  <div class="homepage-clock" aria-label="Local time and date">
+  <div class="homepage-clock" aria-label="Eastern time and date">
     <time id="homepageTime" class="clock-time"></time>
     <time id="homepageDate" class="clock-date"></time>
   </div>
@@ -222,202 +91,6 @@ nav { max-width: 980px; margin-inline: auto; gap: 14px; }
     <div id="countdownTrack" class="countdown-track"></div>
   </div>
   </div>
-
-  <script>
-(() => {
-  const menu = document.querySelector('nav[aria-label="Dental notes"]');
-  const cards = [...menu.querySelectorAll('.tool')];
-  const storageKey = 'dental-notes-menu-order';
-  // Keep saved card ordering stable while opening the current local Extraction project.
-  const cardId = card => new URL(card.dataset.hostedHref || card.href).pathname;
-  cards.forEach(card => {
-    if (location.protocol === 'file:' && card.dataset.localHref) {
-      card.dataset.hostedHref = card.href;
-      card.href = new URL(card.dataset.localHref, location.href).href;
-    }
-  });
-  try {
-    const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    if (Array.isArray(saved)) {
-      const remaining = new Map(cards.map(card => [cardId(card), card]));
-      saved.forEach(id => { if (remaining.has(id)) { menu.append(remaining.get(id)); remaining.delete(id); } });
-      remaining.forEach(card => menu.append(card));
-    }
-  } catch {}
-  const save = () => { try { localStorage.setItem(storageKey, JSON.stringify([...menu.querySelectorAll('.tool')].map(cardId))); } catch {} };
-  let dragging = null, target = null, suppressClickUntil = 0;
-  const clearTarget = () => { if (target) target.classList.remove('drop-target'); target = null; };
-  const finish = () => {
-    clearTarget();
-    if (dragging) dragging.classList.remove('dragging');
-    dragging = null;
-    suppressClickUntil = Date.now() + 250;
-  };
-  cards.forEach(card => {
-    card.draggable = true;
-    card.title = 'Click to open; drag to rearrange';
-    card.addEventListener('dragstart', event => {
-      dragging = card;
-      card.classList.add('dragging');
-      event.dataTransfer.effectAllowed = 'move';
-      event.dataTransfer.setData('text/plain', cardId(card));
-    });
-    card.addEventListener('dragend', finish);
-    card.addEventListener('click', event => { if (dragging || Date.now() < suppressClickUntil) event.preventDefault(); });
-  });
-  menu.addEventListener('dragover', event => {
-    if (!dragging) return;
-    event.preventDefault();
-    event.dataTransfer.dropEffect = 'move';
-    const next = event.target.closest('.tool');
-    if (next === target) return;
-    clearTarget();
-    if (next && next !== dragging && menu.contains(next)) { target = next; target.classList.add('drop-target'); }
-  });
-  menu.addEventListener('dragleave', event => { if (!menu.contains(event.relatedTarget)) clearTarget(); });
-  menu.addEventListener('drop', event => {
-    if (!dragging) return;
-    event.preventDefault();
-    if (target) {
-      const rect = target.getBoundingClientRect();
-      const multipleColumns = getComputedStyle(menu).gridTemplateColumns.split(' ').length > 1;
-      const after = multipleColumns ? event.clientX > rect.left + rect.width / 2 : event.clientY > rect.top + rect.height / 2;
-      menu.insertBefore(dragging, after ? target.nextSibling : target);
-      save();
-    }
-    finish();
-  });
-})();
-  </script>
-  <script>
-(() => {
-  const portrait = document.querySelector('.portrait-wrap');
-  const pupils = [...document.querySelectorAll('.tracking-pupil')];
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  if (!portrait || !pupils.length) return;
-  let frame = 0, cursor = null;
-  const center = () => { cursor = null; pupils.forEach(pupil => pupil.setAttribute('transform', 'translate(0 0)')); };
-  document.addEventListener('pointermove', event => {
-    if (event.pointerType === 'touch' || reducedMotion.matches) return;
-    cursor = { x: event.clientX, y: event.clientY };
-    if (frame) return;
-    frame = requestAnimationFrame(() => {
-      frame = 0;
-      if (!cursor) return;
-      const rect = portrait.getBoundingClientRect();
-      const dx = cursor.x - rect.left - rect.width / 2;
-      const dy = cursor.y - rect.top - rect.height * .4;
-      const distance = Math.hypot(dx, dy);
-      const amount = Math.min(18, distance / 15);
-      const x = distance ? dx / distance * amount : 0;
-      const y = distance ? dy / distance * amount : 0;
-      pupils.forEach(pupil => pupil.setAttribute('transform', `translate(${x.toFixed(2)} ${y.toFixed(2)})`));
-    });
-  }, { passive: true });
-  document.documentElement.addEventListener('pointerleave', center);
-  window.addEventListener('blur', center);
-  reducedMotion.addEventListener('change', center);
-})();
-  </script>
-  <script>
-(() => {
-  const portrait = document.querySelector('.portrait-wrap');
-  const closed = portrait?.querySelector('.portrait-blink-frame');
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  if (!portrait || !closed) return;
-  let timer, end;
-  const stop = () => {
-    clearTimeout(timer); clearTimeout(end);
-    portrait.classList.remove('is-blinking');
-  };
-  const blink = () => {
-    if (document.hidden || reduced.matches || !closed.complete || !closed.naturalWidth) return;
-    portrait.classList.add('is-blinking');
-    end = setTimeout(() => portrait.classList.remove('is-blinking'), 200);
-    timer = setTimeout(blink, 4000 + Math.random() * 3500);
-  };
-  const start = () => {
-    stop();
-    if (!document.hidden && !reduced.matches && closed.complete && closed.naturalWidth) timer = setTimeout(blink, 2200);
-  };
-  closed.addEventListener('load', start);
-  document.addEventListener('visibilitychange', start);
-  reduced.addEventListener('change', start);
-  start();
-})();
-</script>
-  <script>
-(() => {
-  const clock = document.getElementById('homepageTime');
-  const date = document.getElementById('homepageDate');
-  const timeFormat = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit', second: '2-digit' });
-  const dateFormat = new Intl.DateTimeFormat(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-  let timer;
-  const update = () => {
-    const now = new Date();
-    clock.textContent = timeFormat.format(now);
-    clock.dateTime = now.toISOString();
-    date.textContent = dateFormat.format(now);
-    date.dateTime = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-  };
-  const resume = () => {
-    clearInterval(timer);
-    update();
-    if (!document.hidden) timer = setInterval(update, 1000);
-  };
-  document.addEventListener('visibilitychange', resume);
-  resume();
-})();
-  </script>
-  <script>
-(() => {
-  const events = [
-    ['ADEX EXAM', 2026, 11, 13, '🦷'],
-    ['Thanksgiving Day', 2026, 11, 26, '🦃'],
-    ['Christmas Eve', 2026, 12, 24, '🎄'],
-    ["New Year's Day", 2027, 1, 1, '🎆'],
-    ['Last Day of D4', 2027, 5, 21, '🎉'],
-    ['Commencement Day', 2027, 6, 6, '🎓']
-  ];
-  const track = document.getElementById('countdownTrack');
-  const card = track.parentElement;
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const dateFormat = new Intl.DateTimeFormat('en-US', { month:'long', day:'numeric', year:'numeric' });
-  let index = 0, timer, flipTimer, paused = false;
-  const face = eventIndex => {
-    const [name, year, month, day, icon] = events[eventIndex], now = new Date();
-    const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
-    const days = Math.round((Date.UTC(year, month - 1, day) - today) / 86400000);
-    const remaining = days > 0 ? `${days} ${days === 1 ? 'day' : 'days'} left` : days === 0 ? 'Today!' : `${-days} ${days === -1 ? 'day' : 'days'} ago`;
-    const panel = document.createElement('div'); panel.className = 'countdown-face';
-    [['countdown-title',`${icon} ${name}`],['countdown-remaining',remaining],['countdown-date',dateFormat.format(new Date(year, month - 1, day))]].forEach(([className,text]) => {
-      const line = document.createElement('div'); line.className = className; line.textContent = text; panel.append(line);
-    });
-    return panel;
-  };
-  const show = () => {
-    track.classList.remove('is-rotating');
-    const front = face(index); front.classList.add('countdown-front');
-    track.replaceChildren(front);
-  };
-  const next = () => {
-    if (paused || document.hidden) return;
-    const nextIndex = (index + 1) % events.length;
-    if (reducedMotion.matches) { index = nextIndex; show(); return; }
-    const right = face(nextIndex); right.classList.add('countdown-right');
-    track.append(right);
-    track.classList.add('is-rotating');
-    flipTimer = setTimeout(() => { index = nextIndex; show(); },800);
-  };
-  const resume = () => {
-    clearInterval(timer); clearTimeout(flipTimer); show();
-    if (!document.hidden) timer = setInterval(next,5000);
-  };
-  card.addEventListener('pointerenter',() => paused = true);
-  card.addEventListener('pointerleave',() => paused = false);
-  document.addEventListener('visibilitychange',resume);
-  resume();
-})();
-  </script>
+  <script src="script.js?v=homepage-cleanup-1"></script>
 </body>
 </html>
